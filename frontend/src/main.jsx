@@ -25,10 +25,38 @@ const zoningColors = ["#d875e4", "#f29d38", "#7ad3e2", "#6fa8ff", "#a2d867", "#f
 
 const emptyGeojson = { type: "FeatureCollection", features: [] };
 
+const staticPaths = {
+  "/api/parcels": "./data/processed/parcels_enriched.geojson",
+  "/api/buildings": "./data/processed/buildings_enriched.geojson",
+  "/api/zoning": "./data/processed/zoning_songpa.geojson",
+  "/api/census": "./data/processed/census_songpa.geojson",
+  "/api/stats/use": "./data/processed/stats_use.csv",
+  "/api/stats/zoning": "./data/processed/stats_zoning.csv",
+  "/api/stats/population": "./data/processed/stats_population.csv"
+};
+
+function parseCsv(text) {
+  const lines = text.trim().split(/\r?\n/);
+  if (lines.length < 2) return [];
+  const headers = lines[0].split(",");
+  return lines.slice(1).map((line) => {
+    const values = line.split(",");
+    return Object.fromEntries(headers.map((header, index) => [header, values[index] ?? ""]));
+  });
+}
+
 async function getJson(path) {
-  const res = await fetch(`${API}${path}`);
-  if (!res.ok) throw new Error(`${path} ${res.status}`);
-  return res.json();
+  try {
+    const res = await fetch(`${API}${path}`);
+    if (!res.ok) throw new Error(`${path} ${res.status}`);
+    return res.json();
+  } catch (error) {
+    const staticPath = staticPaths[path];
+    if (!staticPath) throw error;
+    const res = await fetch(staticPath);
+    if (!res.ok) throw new Error(`${staticPath} ${res.status}`);
+    return staticPath.endsWith(".csv") ? parseCsv(await res.text()) : res.json();
+  }
 }
 
 function valueText(value, suffix = "") {
