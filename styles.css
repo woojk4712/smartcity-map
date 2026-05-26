@@ -1,0 +1,36 @@
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Inter, "Segoe UI", sans-serif; background: #10141b; color: #f5f7fb; }
+.app { width: 100vw; height: 100vh; overflow: hidden; position: relative; }
+header { position: absolute; z-index: 5; top: 12px; left: 50%; transform: translateX(-50%); padding: 10px 18px; background: rgba(14,18,28,.82); border: 1px solid rgba(255,255,255,.14); border-radius: 8px; font-size: 18px; font-weight: 800; letter-spacing: 0; }
+#map { position: absolute; inset: 0; }
+.panel { position: absolute; z-index: 4; top: 18px; bottom: 18px; width: 300px; overflow: auto; padding: 16px; background: rgba(13,17,26,.86); border: 1px solid rgba(255,255,255,.14); box-shadow: 0 18px 50px rgba(0,0,0,.32); backdrop-filter: blur(8px); }
+.left { left: 18px; }
+.right { right: 18px; width: 360px; }
+h2 { margin: 0 0 12px; font-size: 15px; }
+h3 { margin: 18px 0 9px; font-size: 12px; color: #cbd5e1; }
+.check { height: 30px; display: flex; gap: 9px; align-items: center; font-size: 13px; color: #e6edf7; }
+.check input { accent-color: #f6a23a; }
+.legend { display: grid; gap: 7px; max-height: 240px; overflow: auto; }
+.legend div { display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 12px; color: #d8e0ec; }
+.legend i { display: block; width: 12px; height: 12px; border-radius: 2px; border: 1px solid rgba(255,255,255,.35); flex: 0 0 auto; }
+.legend span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hoverbox, .selected { margin-top: 12px; padding: 10px; background: rgba(255,255,255,.08); border-radius: 6px; font-size: 12px; color: #eef2f7; white-space: pre-wrap; overflow: auto; max-height: 190px; }
+.tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; margin-bottom: 12px; }
+.tabs button { cursor: pointer; background: transparent; text-align: center; padding: 7px 3px; color: #94a3b8; border: 0; border-bottom: 1px solid rgba(255,255,255,.12); font-size: 11px; }
+.tabs .active { color: #ffffff; border-color: #f6a23a; }
+.metric { display: grid; grid-template-columns: 1fr 1fr; gap: 3px 12px; padding: 12px 0; border-top: 1px solid rgba(255,255,255,.1); border-bottom: 1px solid rgba(255,255,255,.1); }
+.metric b { font-size: 18px; }
+.metric span { color: #9aa7b7; font-size: 11px; }
+.chart { height: 220px; }
+.note { margin: 10px 0; color: #aeb8c8; font-size: 11px; line-height: 1.45; }
+table { width: 100%; border-collapse: collapse; font-size: 11px; }
+th, td { padding: 7px 4px; border-bottom: 1px solid rgba(255,255,255,.08); text-align: right; }
+th:first-child, td:first-child { text-align: left; max-width: 130px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+th { color: #aeb8c8; font-weight: 600; }
+.maplibregl-popup-content { background: rgba(15,19,29,.92); color: white; border: 1px solid rgba(255,255,255,.2); border-radius: 6px; font: 12px/1.6 Inter, "Segoe UI", sans-serif; }
+.maplibregl-popup-tip { border-top-color: rgba(15,19,29,.92) !important; }
+@media (max-width: 900px) {
+  .panel { width: calc(50vw - 24px); top: auto; height: 42vh; }
+  .right { width: calc(50vw - 24px); }
+  header { left: 12px; transform: none; max-width: calc(100vw - 24px); }
+}
